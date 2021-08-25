@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv) {
     for (int i = 0; i < argc; i++) {
-        std::iostream << argv[i] << std::endl;
+        std::cout << argv[i] << std::endl;
     }
-    std::cin.get()
+    std::cin.get();
 }

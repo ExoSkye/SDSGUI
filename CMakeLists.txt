@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.5)
 
 project(SDSGUI VERSION 0.1 LANGUAGES CXX)
 
+option(INSTALLER "Build the IFW installer - Make sure QtIFW is in your system PATH" ON)
+
+if(INSTALLER)
+    include(CPack)
+    include(CPackIFW)
+endif()
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON)
@@ -73,7 +80,13 @@ if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(SDSGUI)
 endif()
 
-if(WINDOWS)
-    add_executable(TOKEN_PLACER placer.cpp)
-    add_dependencies(SDSGUI TOKEN_PLACER)
+add_executable(TOKEN_PLACER placer.cpp)
+add_dependencies(SDSGUI TOKEN_PLACER)
+
+if(INSTALLER)
+    cpack_add_component(SDSGUI DISPLAY_NAME "SchoolDigitalSignage Management Interface" REQUIRED)
+    cpack_ifw_configure_component(SDSGUI REQUIRES_ADMIN_RIGHTS)
+    install(TARGETS SDSGUI TOKEN_PLACER RUNTIME)
+    set(CPACK_GENERATOR "IFW")
 endif()
+
