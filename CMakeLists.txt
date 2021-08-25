@@ -72,3 +72,8 @@ set_target_properties(SDSGUI PROPERTIES
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(SDSGUI)
 endif()
+
+if(WINDOWS)
+    add_executable(TOKEN_PLACER placer.cpp)
+    add_dependencies(SDSGUI TOKEN_PLACER)
+endif()

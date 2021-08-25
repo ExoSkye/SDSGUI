@@ -23,12 +23,12 @@ int main(int argc, char *argv[])
         }
     }
 #ifdef _WIN32
-    char pBuf[256];
-    size_t len = sizeof(pBuf);
-    int bytes = GetModuleFileName(NULL, pBuf, len);
-    return bytes ? bytes : -1;
+    char pBuf[512];
+    int bytes = GetModuleFileNameA(NULL, pBuf, 512);
 
-    QSettings key("HKEY_CLASSES_ROOT\\SDS", QSettings::NativeFormat);
+    strcpy(pBuf[bytes-6],"TOKEN_PLACER")
+
+    QSettings key("HKEY_CLASSES_ROOT\\sds", QSettings::NativeFormat);
     key.setValue(".","URL:sds Protocol");
     key.setValue("URL Protocol", "");
     QSettings OpenKey("HKEY_CLASSES_ROOT\\sds\\shell\\open\\command", QSettings::NativeFormat);
